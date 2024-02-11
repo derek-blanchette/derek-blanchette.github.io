@@ -65,8 +65,12 @@ function processFile() {
 
             resultDiv.textContent = "Processed Results:\n" + JSON.stringify(processedData, null, 2);			
 					
-			createDualAxisPlot(processedData['write_graph_values'], 'writePlotCanvas', 'Write Data', 0, 4, borderColorSpeed = "#AC3B61", borderColorCPU = "#E3AFBC");
-			createDualAxisPlot(processedData['verify_graph_values'], 'verifyPlotCanvas', 'Verify Data', 0, 3, borderColorSpeed = "#4056A1", borderColorCPU = "#C5CBE3");
+			createDualAxisPlot(processedData['write_graph_values'], 'writePlotCanvas', 'Write Data', 0, 4, borderColorSpeed = "#AC3B61", borderColorCPU = "#E3AFBC", ylabel = "CPU%", ythickness = 1);
+			
+			createDualAxisPlot(processedData['write_graph_values'], 'newWritePlotCanvas', 'Write Data', 0, 3, borderColorSpeed = "#AC3B61", borderColorCPU = "green", ylabel = "Buffer%", ythickness = 2);
+			
+			
+			createDualAxisPlot(processedData['verify_graph_values'], 'verifyPlotCanvas', 'Verify Data', 0, 3, borderColorSpeed = "#4056A1", borderColorCPU = "#C5CBE3", ylabel = "CPU%", ythickness = 1);
 
 			
             displayConfiguration(processedData['START_CONFIGURATION']);
@@ -132,7 +136,7 @@ function displayConfiguration(configurationData) {
     }
 }
 
-function createDualAxisPlot(data, canvasId, label, speedColumnIndex, cpuColumnIndex, borderColorSpeed, borderColorCPU) {
+function createDualAxisPlot(data, canvasId, label, speedColumnIndex, cpuColumnIndex, borderColorSpeed, borderColorCPU, ylabel) {
     var ctx = document.getElementById(canvasId).getContext('2d');
 
     var xValues = data.map(entry => entry[1] * 2048 / (1024 * 1024 * 1024)); 
@@ -153,11 +157,11 @@ function createDualAxisPlot(data, canvasId, label, speedColumnIndex, cpuColumnIn
                     pointRadius: 0,
                 },
                 {
-                    label: label.slice(0, -5) + ' CPU%',
+                    label: label.slice(0, -5) + " " + ylabel,
                     yAxisID: 'y-axis-cpu',
                     data: xValues.map((x, i) => ({ x, y: cpuValues[i] })),
                     borderColor: borderColorCPU,
-                    borderWidth: 1,
+                    borderWidth: ythickness,
                     pointRadius: 0,
                 },
             ]
@@ -170,6 +174,9 @@ function createDualAxisPlot(data, canvasId, label, speedColumnIndex, cpuColumnIn
                     title: {
                         display: true,
                         text: "Data (GB)"
+                    },
+                    grid: {
+                        display: false
                     }
                 },
                 
@@ -179,6 +186,9 @@ function createDualAxisPlot(data, canvasId, label, speedColumnIndex, cpuColumnIn
                     title: {
                         display: true,
                         text: 'Speed (X)'
+                    },
+                    grid: {
+                        display: false
                     }
                 },
                 'y-axis-cpu': {
@@ -186,12 +196,16 @@ function createDualAxisPlot(data, canvasId, label, speedColumnIndex, cpuColumnIn
                     position: "right",
                     title: {
                         display: true,
-                        text: 'CPU %'
+                        text: ylabel
                     },
                     min: 0,
-                    max: 100
+                    max: 100,
+                    grid: {
+                        display: true
+                    }
                 }
             }
         }
     });
 }
+
