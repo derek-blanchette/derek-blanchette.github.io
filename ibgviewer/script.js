@@ -191,14 +191,6 @@ function createDualAxisPlot(data, canvasId, label, speedColumnIndex, cpuColumnIn
                     min: 0,
                     max: 100
                 }
-            },
-			
-			plugins: {
-                title: {
-                    display: true,
-                    text: 'Derek Blanchette',
-                    position: 'bottom'
-                }
             }
         }
     });
