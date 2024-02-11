@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .container {
+            text-align: center;
+        }
+
+        input[type="file"],
+        button {
+            display: block;
+            margin: 10px auto;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Derek's IBG Viewer</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Derek's IBG Viewer for ImgBurn</h1>
+        In-browser processing of IBG diagnostic files from ImgBurn
+        <input type="file" id="fileInput" accept=".ibg" />  
+        <button onclick="processFile()">Process File</button>
+		
+		<br><br>
+        <canvas id="writePlotCanvas" width="600" height="300"></canvas>
+		<br><br>
+        <canvas id="verifyPlotCanvas" width="600" height="300"></canvas>
+		
+		<div id="result"></div>
+		
+		<h5>Derek Blanchette 2024</h5>
+	</div>
+
+    <script src="script.js"></script>
+	
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-JCSRCLKXCL"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-JCSRCLKXCL');
+	</script>
+
+	
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
