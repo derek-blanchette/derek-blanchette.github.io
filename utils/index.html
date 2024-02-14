@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Directory Listing</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Directory Listing</h1>
+<ul id="directory-list"></ul>
+
+<script>
+    // Fetch directory listing using XMLHttpRequest
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', './', true);
+    xhr.onload = function () {
+        if (xhr.status >= 200 && xhr.status < 300) {
+            var files = xhr.responseText.split('\n').filter(Boolean);
+            displayDirectoryListing(files);
+        } else {
+            console.error('Failed to fetch directory listing.');
+        }
+    };
+    xhr.send();
+
+    // Display directory listing on the page
+    function displayDirectoryListing(files) {
+        var directoryList = document.getElementById('directory-list');
+        files.forEach(function (file) {
+            var listItem = document.createElement('li');
+            listItem.textContent = file;
+            directoryList.appendChild(listItem);
+        });
+    }
+</script>
+
+</body>
+</html>
